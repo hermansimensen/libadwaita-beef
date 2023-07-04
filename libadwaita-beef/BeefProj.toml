@@ -1,0 +1,7 @@
+FileVersion = 1
+Dependencies = {corlib = "*", gtk-beef = "*"}
+
+[Project]
+Name = "libadwaita-beef"
+TargetType = "BeefLib"
+StartupObject = "libadwaita_beef.Program"

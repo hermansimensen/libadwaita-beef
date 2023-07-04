@@ -107,6 +107,7 @@ class Adw
 		public static extern void SetVersion(AboutWindow* self, char8* version);
 		[LinkName("adw_about_window_set_website")]
 		public static extern void SetWebsite(AboutWindow* self, char8* website);
+		public function c_int ActivateLinkFunc(AboutWindow* self, char8* uri, void* user_data);
 	}
 	[CRepr]
 	public struct ActionRow : PreferencesRow
@@ -145,6 +146,7 @@ class Adw
 		public static extern void SetSubtitleSelectable(ActionRow* self, c_int subtitle_selectable);
 		[LinkName("adw_action_row_set_title_lines")]
 		public static extern void SetTitleLines(ActionRow* self, c_int title_lines);
+		public function void ActivatedFunc(ActionRow* self, void* user_data);
 	}
 	[CRepr]
 	public struct Animation : GObject.Object
@@ -173,6 +175,7 @@ class Adw
 		public static extern void SetTarget(Animation* self, AnimationTarget* target);
 		[LinkName("adw_animation_skip")]
 		public static extern void Skip(Animation* self);
+		public function void DoneFunc(Animation* self, void* user_data);
 	}
 	[CRepr]
 	public struct AnimationTarget : GObject.Object
@@ -249,6 +252,7 @@ class Adw
 		public static extern void SetTitle(Banner* self, char8* title);
 		[LinkName("adw_banner_set_use_markup")]
 		public static extern void SetUseMarkup(Banner* self, c_int use_markup);
+		public function void ButtonClickedFunc(Banner* self, void* user_data);
 	}
 	[CRepr]
 	public struct Bin : Gtk.Widget
@@ -273,6 +277,8 @@ class Adw
 		public static extern BreakpointCondition* GetCondition(Breakpoint* self);
 		[LinkName("adw_breakpoint_set_condition")]
 		public static extern void SetCondition(Breakpoint* self, BreakpointCondition* condition);
+		public function void ApplyFunc(Breakpoint* self, void* user_data);
+		public function void UnapplyFunc(Breakpoint* self, void* user_data);
 	}
 	[CRepr]
 	public struct BreakpointBin : Gtk.Widget
@@ -367,6 +373,7 @@ class Adw
 		public static extern void SetScrollParams(Carousel* self, SpringParams* params_);
 		[LinkName("adw_carousel_set_spacing")]
 		public static extern void SetSpacing(Carousel* self, c_uint spacing);
+		public function void PageChangedFunc(Carousel* self, c_uint index, void* user_data);
 	}
 	[CRepr]
 	public struct CarouselIndicatorDots : Gtk.Widget
@@ -519,6 +526,8 @@ class Adw
 		public static extern void SetInputPurpose(EntryRow* self, Gtk.InputPurpose purpose);
 		[LinkName("adw_entry_row_set_show_apply_button")]
 		public static extern void SetShowApplyButton(EntryRow* self, c_int show_apply_button);
+		public function void ApplyFunc(EntryRow* self, void* user_data);
+		public function void EntryActivatedFunc(EntryRow* self, void* user_data);
 	}
 	[CRepr]
 	public struct EnumListItem : GObject.Object
@@ -829,6 +838,7 @@ class Adw
 		public static extern void SetResponseEnabled(MessageDialog* self, char8* response, c_int enabled);
 		[LinkName("adw_message_dialog_set_response_label")]
 		public static extern void SetResponseLabel(MessageDialog* self, char8* response, char8* label);
+		public function void ResponseFunc(MessageDialog* self, char8* response, void* user_data);
 	}
 	[CRepr]
 	public struct NavigationPage : Gtk.Widget
@@ -853,6 +863,10 @@ class Adw
 		public static extern void SetTag(NavigationPage* self, char8* tag);
 		[LinkName("adw_navigation_page_set_title")]
 		public static extern void SetTitle(NavigationPage* self, char8* title);
+		public function void HiddenFunc(NavigationPage* self, void* user_data);
+		public function void HidingFunc(NavigationPage* self, void* user_data);
+		public function void ShowingFunc(NavigationPage* self, void* user_data);
+		public function void ShownFunc(NavigationPage* self, void* user_data);
 	}
 	[CRepr]
 	public struct NavigationSplitView : Gtk.Widget
@@ -927,6 +941,10 @@ class Adw
 		public static extern void ReplaceWithTags(NavigationView* self, char8** tags, c_int n_tags);
 		[LinkName("adw_navigation_view_set_animate_transitions")]
 		public static extern void SetAnimateTransitions(NavigationView* self, c_int animate_transitions);
+		public function NavigationPage GetNextPageFunc(NavigationView* self, void* user_data);
+		public function void PoppedFunc(NavigationView* self, NavigationPage page, void* user_data);
+		public function void PushedFunc(NavigationView* self, void* user_data);
+		public function void ReplacedFunc(NavigationView* self, void* user_data);
 	}
 	[CRepr]
 	public struct OverlaySplitView : Gtk.Widget
@@ -1155,6 +1173,9 @@ class Adw
 		public static extern void SetWrap(SpinRow* self, c_int wrap);
 		[LinkName("adw_spin_row_update")]
 		public static extern void Update(SpinRow* self);
+		public function c_int InputFunc(SpinRow* self, double* new_value, void* user_data);
+		public function c_int OutputFunc(SpinRow* self, void* user_data);
+		public function void WrappedFunc(SpinRow* self, void* user_data);
 	}
 	[CRepr]
 	public struct SplitButton : Gtk.Widget
@@ -1201,6 +1222,8 @@ class Adw
 		public static extern void SetPopover(SplitButton* self, Gtk.Popover* popover);
 		[LinkName("adw_split_button_set_use_underline")]
 		public static extern void SetUseUnderline(SplitButton* self, c_int use_underline);
+		public function void ActivateFunc(SplitButton* self, void* user_data);
+		public function void ClickedFunc(SplitButton* self, void* user_data);
 	}
 	[CRepr]
 	public struct SpringAnimation : Animation
@@ -1375,6 +1398,10 @@ class Adw
 		public static extern void SetUpperOvershoot(SwipeTracker* self, c_int overshoot);
 		[LinkName("adw_swipe_tracker_shift_position")]
 		public static extern void ShiftPosition(SwipeTracker* self, double delta);
+		public function void BeginSwipeFunc(SwipeTracker* self, void* user_data);
+		public function void EndSwipeFunc(SwipeTracker* self, double velocity, double to, void* user_data);
+		public function void PrepareFunc(SwipeTracker* self, NavigationDirection direction, void* user_data);
+		public function void UpdateSwipeFunc(SwipeTracker* self, double progress, void* user_data);
 	}
 	[CRepr]
 	public struct SwitchRow : ActionRow
@@ -1427,6 +1454,8 @@ class Adw
 		public static extern void SetView(TabBar* self, TabView* view);
 		[LinkName("adw_tab_bar_setup_extra_drop_target")]
 		public static extern void SetupExtraDropTarget(TabBar* self, Gdk.DragAction actions, GLib.Type* types, c_ulong n_types);
+		public function c_int ExtraDragDropFunc(TabBar* self, TabPage page, GObject.Value value, void* user_data);
+		public function Gdk.DragAction ExtraDragValueFunc(TabBar* self, TabPage page, GObject.Value value, void* user_data);
 	}
 	[CRepr]
 	public struct TabButton : Gtk.Widget
@@ -1437,6 +1466,8 @@ class Adw
 		public static extern TabView* GetView(TabButton* self);
 		[LinkName("adw_tab_button_set_view")]
 		public static extern void SetView(TabButton* self, TabView* view);
+		public function void ActivateFunc(TabButton* self, void* user_data);
+		public function void ClickedFunc(TabButton* self, void* user_data);
 	}
 	[CRepr]
 	public struct TabOverview : Gtk.Widget
@@ -1489,6 +1520,9 @@ class Adw
 		public static extern void SetView(TabOverview* self, TabView* view);
 		[LinkName("adw_tab_overview_setup_extra_drop_target")]
 		public static extern void SetupExtraDropTarget(TabOverview* self, Gdk.DragAction actions, GLib.Type* types, c_ulong n_types);
+		public function TabPage CreateTabFunc(TabOverview* self, void* user_data);
+		public function c_int ExtraDragDropFunc(TabOverview* self, TabPage page, GObject.Value value, void* user_data);
+		public function Gdk.DragAction ExtraDragValueFunc(TabOverview* self, TabPage page, GObject.Value value, void* user_data);
 	}
 	[CRepr]
 	public struct TabPage : GObject.Object
@@ -1635,6 +1669,13 @@ class Adw
 		public static extern void SetShortcuts(TabView* self, TabViewShortcuts shortcuts);
 		[LinkName("adw_tab_view_transfer_page")]
 		public static extern void TransferPage(TabView* self, TabPage* page, TabView* other_view, c_int position);
+		public function c_int ClosePageFunc(TabView* self, TabPage page, void* user_data);
+		public function TabView CreateWindowFunc(TabView* self, void* user_data);
+		public function void IndicatorActivatedFunc(TabView* self, TabPage page, void* user_data);
+		public function void PageAttachedFunc(TabView* self, TabPage page, c_int position, void* user_data);
+		public function void PageDetachedFunc(TabView* self, TabPage page, c_int position, void* user_data);
+		public function void PageReorderedFunc(TabView* self, TabPage page, c_int position, void* user_data);
+		public function void SetupMenuFunc(TabView* self, TabPage page, void* user_data);
 	}
 	[CRepr]
 	public struct TimedAnimation : Animation
@@ -1707,6 +1748,8 @@ class Adw
 		public static extern void SetTimeout(Toast* self, c_uint timeout);
 		[LinkName("adw_toast_set_title")]
 		public static extern void SetTitle(Toast* self, char8* title);
+		public function void ButtonClickedFunc(Toast* self, void* user_data);
+		public function void DismissedFunc(Toast* self, void* user_data);
 	}
 	[CRepr]
 	public struct ToastOverlay : Gtk.Widget

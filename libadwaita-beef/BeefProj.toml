@@ -9,3 +9,7 @@ StartupObject = "libadwaita_beef.Program"
 [Configs.Debug.Linux64]
 BuildKind = "StaticLib"
 OtherLinkFlags = "$(LinkFlags) -ladwaita-1"
+
+[Configs.Release.Linux64]
+BuildKind = "StaticLib"
+OtherLinkFlags = "$(LinkFlags) -ladwaita-1"

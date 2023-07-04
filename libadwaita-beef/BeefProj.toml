@@ -5,3 +5,7 @@ Dependencies = {corlib = "*", gtk-beef = "*"}
 Name = "libadwaita-beef"
 TargetType = "BeefLib"
 StartupObject = "libadwaita_beef.Program"
+
+[Configs.Debug.Linux64]
+BuildKind = "StaticLib"
+OtherLinkFlags = "$(LinkFlags) -ladwaita-1"
